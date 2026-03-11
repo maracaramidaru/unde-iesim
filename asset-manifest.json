@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/unde-iesim/static/css/main.0402d446.css",
+    "main.js": "/unde-iesim/static/js/main.75e112fe.js",
+    "static/js/453.63202095.chunk.js": "/unde-iesim/static/js/453.63202095.chunk.js",
+    "index.html": "/unde-iesim/index.html",
+    "main.0402d446.css.map": "/unde-iesim/static/css/main.0402d446.css.map",
+    "main.75e112fe.js.map": "/unde-iesim/static/js/main.75e112fe.js.map",
+    "453.63202095.chunk.js.map": "/unde-iesim/static/js/453.63202095.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0402d446.css",
+    "static/js/main.75e112fe.js"
+  ]
+}
