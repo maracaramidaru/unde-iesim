@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const zoneOptions = [
-  { value: "", label: "Orice zonă" },
   { value: "centru", label: "Centru Vechi" },
   { value: "victoriei", label: "Piața Victoriei" },
   { value: "unirii", label: "Piața Unirii" },
@@ -14,17 +13,14 @@ const zoneOptions = [
 ];
 
 const categoryOptions = [
-  { value: "", label: "Orice" },
-  { value: "cafea", label: "Cafenea" },
-  { value: "restaurant", label: "Restaurant" },
-  { value: "bar", label: "Bar" },
-  { value: "club", label: "Club" },
+  { value: "cafea", label: "☕ Cafenea" },
+  { value: "restaurant", label: "🍽️ Restaurant" },
+  { value: "bar", label: "🍸 Bar" },
+  { value: "club", label: "🎵 Club" },
 ];
 
-// Vibe options per category
 const vibeOptions = {
   "": [
-    { value: "", label: "Orice" },
     { value: "specialty", label: "Specialty Coffee" },
     { value: "instagram", label: "Instagramabil" },
     { value: "date", label: "Perfect pentru date" },
@@ -32,9 +28,9 @@ const vibeOptions = {
     { value: "trendy", label: "Trendy" },
     { value: "party", label: "Party" },
     { value: "casual", label: "Casual" },
+    { value: "remote", label: "Remote friendly" },
   ],
   cafea: [
-    { value: "", label: "Orice" },
     { value: "specialty", label: "Specialty Coffee" },
     { value: "instagram", label: "Instagramabil" },
     { value: "chill", label: "Cozy / Relaxat" },
@@ -42,7 +38,6 @@ const vibeOptions = {
     { value: "remote", label: "Remote work friendly" },
   ],
   restaurant: [
-    { value: "", label: "Orice" },
     { value: "date", label: "Perfect pentru date" },
     { value: "casual", label: "Casual" },
     { value: "trendy", label: "Trendy" },
@@ -50,24 +45,20 @@ const vibeOptions = {
     { value: "instagram", label: "Instagramabil" },
   ],
   bar: [
-    { value: "", label: "Orice" },
     { value: "chill", label: "Cozy / Relaxat" },
     { value: "date", label: "Perfect pentru date" },
     { value: "trendy", label: "Trendy" },
     { value: "instagram", label: "Rooftop / Instagramabil" },
   ],
   club: [
-    { value: "", label: "Orice" },
     { value: "party", label: "Party" },
     { value: "trendy", label: "Trendy / Underground" },
     { value: "instagram", label: "See & be seen" },
   ],
 };
 
-// Music options per category
 const musicOptions = {
   "": [
-    { value: "", label: "Orice" },
     { value: "ambient", label: "Ambient" },
     { value: "lounge", label: "Lounge" },
     { value: "jazz", label: "Jazz" },
@@ -76,16 +67,15 @@ const musicOptions = {
     { value: "electronic", label: "Electronic" },
     { value: "techno", label: "Techno" },
     { value: "house", label: "House" },
+    { value: "soft", label: "Soft / Instrumental" },
   ],
   cafea: [
-    { value: "", label: "Orice" },
     { value: "ambient", label: "Ambient" },
     { value: "soft", label: "Soft / Instrumental" },
     { value: "jazz", label: "Jazz" },
     { value: "lounge", label: "Lounge" },
   ],
   restaurant: [
-    { value: "", label: "Orice" },
     { value: "ambient", label: "Ambient" },
     { value: "jazz", label: "Jazz" },
     { value: "lounge", label: "Lounge" },
@@ -93,7 +83,6 @@ const musicOptions = {
     { value: "pop", label: "Pop" },
   ],
   bar: [
-    { value: "", label: "Orice" },
     { value: "lounge", label: "Lounge" },
     { value: "jazz", label: "Jazz" },
     { value: "ambient", label: "Ambient / Chill" },
@@ -101,7 +90,6 @@ const musicOptions = {
     { value: "pop", label: "Pop" },
   ],
   club: [
-    { value: "", label: "Orice" },
     { value: "techno", label: "Techno" },
     { value: "house", label: "House" },
     { value: "electronic", label: "Electronic" },
@@ -110,44 +98,36 @@ const musicOptions = {
   ],
 };
 
-// Price options per category
 const priceOptions = {
   "": [
-    { value: "", label: "Orice" },
     { value: "low", label: "€ Ieftin" },
     { value: "medium", label: "€€ Mediu" },
     { value: "high", label: "€€€ Scump" },
   ],
   cafea: [
-    { value: "", label: "Orice" },
     { value: "low", label: "€ Sub 20 lei / cafea" },
-    { value: "medium", label: "€€ 20–35 lei / cafea" },
+    { value: "medium", label: "€€ 20–35 lei" },
     { value: "high", label: "€€€ Specialty premium" },
   ],
   restaurant: [
-    { value: "", label: "Orice" },
-    { value: "low", label: "€ Sub 60 lei / persoană" },
-    { value: "medium", label: "€€ 60–150 lei / persoană" },
-    { value: "high", label: "€€€ Peste 150 lei / persoană" },
+    { value: "low", label: "€ Sub 60 lei / pers." },
+    { value: "medium", label: "€€ 60–150 lei / pers." },
+    { value: "high", label: "€€€ Peste 150 lei" },
   ],
   bar: [
-    { value: "", label: "Orice" },
     { value: "low", label: "€ Bere & shots ieftine" },
     { value: "medium", label: "€€ Cocktailuri standard" },
     { value: "high", label: "€€€ Cocktailuri premium" },
   ],
   club: [
-    { value: "", label: "Orice" },
-    { value: "low", label: "€ Intrare liberă / ieftină" },
+    { value: "low", label: "€ Intrare liberă" },
     { value: "medium", label: "€€ Intrare + consumație" },
     { value: "high", label: "€€€ Bottle service / VIP" },
   ],
 };
 
-// Closing hour options per category
 const closingOptions = {
   "": [
-    { value: "", label: "Orice oră" },
     { value: "22", label: "Până la 22:00" },
     { value: "23", label: "Până la 23:00" },
     { value: "0", label: "Până la 00:00" },
@@ -155,58 +135,122 @@ const closingOptions = {
     { value: "5", label: "Până la 05:00" },
   ],
   cafea: [
-    { value: "", label: "Orice oră" },
-    { value: "20", label: "Închide la 20:00" },
-    { value: "21", label: "Închide la 21:00" },
-    { value: "22", label: "Închide la 22:00" },
-    { value: "23", label: "Închide la 23:00" },
+    { value: "20", label: "Până la 20:00" },
+    { value: "21", label: "Până la 21:00" },
+    { value: "22", label: "Până la 22:00" },
+    { value: "23", label: "Până la 23:00" },
   ],
   restaurant: [
-    { value: "", label: "Orice oră" },
     { value: "22", label: "Până la 22:00" },
     { value: "23", label: "Până la 23:00" },
     { value: "0", label: "Până la miezul nopții" },
   ],
   bar: [
-    { value: "", label: "Orice oră" },
     { value: "23", label: "Până la 23:00" },
     { value: "1", label: "Până la 01:00" },
     { value: "2", label: "Până la 02:00" },
     { value: "5", label: "Non-stop (5:00)" },
   ],
   club: [
-    { value: "", label: "Orice oră" },
     { value: "3", label: "Până la 03:00" },
     { value: "5", label: "Până la 05:00" },
-    { value: "99", label: "Non-stop" },
   ],
 };
 
+// ── Pill checkbox group (multi-select) ──────────────────
+function CheckboxGroup({ name, options, selected, onChange }) {
+  return (
+    <div className="pill-group">
+      {options.map(opt => {
+        const checked = selected.includes(opt.value);
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            className={`pill${checked ? " pill-active" : ""}`}
+            onClick={() => onChange(name, opt.value)}
+          >
+            {checked && "✓ "}
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── Pill radio group (single-select, click again to deselect) ──
+function RadioGroup({ name, options, selected, onChange }) {
+  return (
+    <div className="pill-group">
+      {options.map(opt => {
+        const checked = selected === opt.value;
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            className={`pill${checked ? " pill-active" : ""}`}
+            onClick={() => onChange(name, checked ? "" : opt.value)}
+          >
+            {checked && "✓ "}
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── Main ────────────────────────────────────────────────
 function FilterPanel() {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({
-    zone: "", category: "", vibe: "", price: "", music: "", closingHour: ""
+    zone: "",
+    category: [],
+    vibe: [],
+    price: "",
+    music: [],
+    closingHour: "",
   });
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    // Reset dependent filters when category changes
-    if (name === "category") {
-      setFilters({ ...filters, category: value, vibe: "", music: "", price: "", closingHour: "" });
-    } else {
-      setFilters({ ...filters, [name]: value });
-    }
+  function toggleMulti(name, value) {
+    setFilters(prev => {
+      const arr = prev[name];
+      const next = arr.includes(value)
+        ? arr.filter(v => v !== value)
+        : [...arr, value];
+      if (name === "category") {
+        // Reset dependent filters when category changes
+        return { ...prev, category: next, vibe: [], music: [], price: "", closingHour: "" };
+      }
+      return { ...prev, [name]: next };
+    });
+  }
+
+  function setSingle(name, value) {
+    setFilters(prev => ({ ...prev, [name]: value }));
   }
 
   function handleSubmit() {
     navigate("/results", { state: filters });
   }
 
-  const cat = filters.category;
-  const currentVibes = vibeOptions[cat] || vibeOptions[""];
-  const currentMusic = musicOptions[cat] || musicOptions[""];
-  const currentPrice = priceOptions[cat] || priceOptions[""];
+  // Use category-specific options only when exactly one category is selected
+  const cat = filters.category.length === 1 ? filters.category[0] : "";
+  const currentVibes   = vibeOptions[cat]    || vibeOptions[""];
+  const currentMusic   = musicOptions[cat]   || musicOptions[""];
+  const currentPrice   = priceOptions[cat]   || priceOptions[""];
   const currentClosing = closingOptions[cat] || closingOptions[""];
+  const hideMusic = cat === "cafea" && filters.vibe.includes("remote");
+
+  const activeCount = [
+    filters.zone,
+    ...filters.category,
+    ...filters.vibe,
+    filters.price,
+    ...filters.music,
+    filters.closingHour,
+  ].filter(Boolean).length;
 
   return (
     <div className="filter-panel">
@@ -216,78 +260,51 @@ function FilterPanel() {
       <h3 className="filter-panel-title">Personalizează căutarea</h3>
       <div className="filter-panel-divider" />
 
-      <div className="filter-panel-grid">
+      <div className="filter-section-block">
+        <div className="filter-block-label">Zonă</div>
+        <RadioGroup name="zone" options={zoneOptions} selected={filters.zone} onChange={setSingle} />
+      </div>
 
-        {/* Zonă */}
-        <div className="filter-field">
-          <label htmlFor="zone">Zonă</label>
-          <select id="zone" name="zone" onChange={handleChange} value={filters.zone}>
-            {zoneOptions.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select>
+      <div className="filter-section-block">
+        <div className="filter-block-label">Tip loc <span className="filter-block-hint">— poți alege mai multe</span></div>
+        <CheckboxGroup name="category" options={categoryOptions} selected={filters.category} onChange={toggleMulti} />
+      </div>
+
+      <div className="filter-section-block">
+        <div className="filter-block-label">
+          {cat === "cafea" ? "Atmosferă" : cat === "club" ? "Tip club" : "Vibe"}
+          <span className="filter-block-hint"> — poți alege mai multe</span>
         </div>
+        <CheckboxGroup name="vibe" options={currentVibes} selected={filters.vibe} onChange={toggleMulti} />
+      </div>
 
-        {/* Categorie */}
-        <div className="filter-field">
-          <label htmlFor="category">Tip loc</label>
-          <select id="category" name="category" onChange={handleChange} value={filters.category}>
-            {categoryOptions.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select>
-        </div>
+      <div className="filter-section-block">
+        <div className="filter-block-label">Preț</div>
+        <RadioGroup name="price" options={currentPrice} selected={filters.price} onChange={setSingle} />
+      </div>
 
-        {/* Vibe — context aware */}
-        <div className="filter-field">
-          <label htmlFor="vibe">
-            {cat === "cafea" ? "Atmosferă" : cat === "club" ? "Tip club" : cat === "bar" ? "Tip bar" : "Vibe"}
-          </label>
-          <select id="vibe" name="vibe" onChange={handleChange} value={filters.vibe}>
-            {currentVibes.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select>
-        </div>
-
-        {/* Preț — context aware */}
-        <div className="filter-field">
-          <label htmlFor="price">Preț</label>
-          <select id="price" name="price" onChange={handleChange} value={filters.price}>
-            {currentPrice.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select>
-        </div>
-
-        {/* Muzică — ascuns pentru cafea remote work sau nu are sens */}
-        {cat !== "cafea" || filters.vibe !== "remote" ? (
-          <div className="filter-field">
-            <label htmlFor="music">
-              {cat === "club" ? "Gen muzical" : cat === "cafea" ? "Muzică de fundal" : "Muzică"}
-            </label>
-            <select id="music" name="music" onChange={handleChange} value={filters.music}>
-              {currentMusic.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-            </select>
+      {!hideMusic && (
+        <div className="filter-section-block">
+          <div className="filter-block-label">
+            {cat === "club" ? "Gen muzical" : cat === "cafea" ? "Muzică de fundal" : "Muzică"}
+            <span className="filter-block-hint"> — poți alege mai multe</span>
           </div>
-        ) : (
-          <div className="filter-field">
-            <label>Muzică de fundal</label>
-            <select disabled style={{ opacity: 0.4, cursor: "not-allowed" }}>
-              <option>Ambient / liniștit</option>
-            </select>
-          </div>
-        )}
-
-        {/* Program */}
-        <div className="filter-field">
-          <label htmlFor="closingHour">
-            {cat === "club" ? "Durată noapte" : cat === "cafea" ? "Program" : "Închidere"}
-          </label>
-          <select id="closingHour" name="closingHour" onChange={handleChange} value={filters.closingHour}>
-            {currentClosing.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select>
+          <CheckboxGroup name="music" options={currentMusic} selected={filters.music} onChange={toggleMulti} />
         </div>
+      )}
 
+      <div className="filter-section-block">
+        <div className="filter-block-label">
+          {cat === "club" ? "Durată noapte" : cat === "cafea" ? "Program" : "Deschis până la"}
+        </div>
+        <RadioGroup name="closingHour" options={currentClosing} selected={filters.closingHour} onChange={setSingle} />
       </div>
 
       <button className="filter-submit-btn" onClick={handleSubmit}>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
           <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
         </svg>
-        CAUTĂ LOCURI ✦
+        {activeCount > 0 ? `CAUTĂ (${activeCount} filtre activ${activeCount === 1 ? "" : "e"}) ✦` : "CAUTĂ LOCURI ✦"}
       </button>
     </div>
   );

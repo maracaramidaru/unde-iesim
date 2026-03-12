@@ -13,7 +13,7 @@ const places = [
     closingHour: 22,
     zone: "centru",
     lat: 44.4353, lng: 26.1022,
-    image: "https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg",
+    images: ["https://www.lama.ro/plugins/portofolio/images/34/cover.jpg","https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0b/c9/7a/9e/photo0jpg.jpg"],
     address: "Strada Lipscani 9, București"
   },
   {
@@ -26,10 +26,10 @@ const places = [
     rating: 4.6,
     foodTags: ["Espresso", "V60", "Sandwichuri"],
     phone: "+40 721 234 567",
-    closingHour: 21,
+    closingHour: 19,
     zone: "dorobanti",
     lat: 44.4573, lng: 26.0891,
-    image: "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg",
+    images: ["https://beansanddots.ro/wp-content/uploads/2022/09/Primaverii.jpeg","https://tse3.mm.bing.net/th/id/OIP.7KxI2bf2PWbSpog3Znj25wHaJQ?pid=ImgDet&w=474&h=592&rs=1&o=7&rm=3","https://beansanddots.ro/wp-content/uploads/2022/11/Beans-Dots-Cafenea-de-specialitate-Bucuresti-3.jpeg"],
     address: "Strada Pictor Verona 13, București"
   },
   {
@@ -148,7 +148,7 @@ const places = [
     id: 10,
     name: "Barista Coffee Lab",
     category: "cafea",
-    vibe: "specialty",
+    vibe: ["specialty","chill"],
     price: "medium",
     music: "soft",
     rating: 4.5,
@@ -157,7 +157,7 @@ const places = [
     closingHour: 21,
     zone: "cotroceni",
     lat: 44.4239, lng: 26.0704,
-    image: "https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg",
+    images: ["https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg","https://i.pinimg.com/736x/ff/4a/a2/ff4aa2e11f4d958c5c9db736fb62d258.jpg"],
     address: "Bulevardul Eroii Sanitari 3, București"
   },
 
@@ -636,7 +636,7 @@ const places = [
     category: "club",
     vibe: "party",
     price: "medium",
-    music: "hip hop",
+    music: ["hip hop","pop"],
     rating: 4.2,
     foodTags: ["Cocktailuri", "Shots", "Hip hop & R&B"],
     phone: "+40 755 567 890",

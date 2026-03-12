@@ -29,10 +29,8 @@ function Home() {
       <nav className="nav">
         <div className="nav-logo">#UNDE<span>IEȘIM</span></div>
         <div className="nav-links">
-          {["Contact"].map(item => (
-            <Link key={item} to="/contact" className="nav-link">{item}</Link>
-
-          ))}
+         
+          <Link to="/contact" className="nav-link">Contact</Link>
         </div>
       </nav>
 
@@ -76,7 +74,7 @@ function Home() {
           <div>
             <div className="filter-section-eyebrow">✦ FILTREAZĂ</div>
             <h2 className="filter-section-title">
-              SEARA<br /><span>TA,</span><br />ALEGERILE<br />TALE
+              <br /><span>TRY</span><br />NEW<br />PLACES
             </h2>
             <p className="filter-section-desc">
               Spune-ne ce cauți și noi găsim locurile perfecte pentru tine în București.

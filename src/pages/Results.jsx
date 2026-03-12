@@ -14,17 +14,59 @@ function Results() {
   const { state: filters } = useLocation();
   const navigate = useNavigate();
 
+  // Guard: if navigated directly without filters
+  const f = filters || {};
+
   const filtered = places.filter(p => {
-    if (filters.zone && p.zone !== filters.zone) return false;
-    if (filters.category && p.category !== filters.category) return false;
-    if (filters.vibe && p.vibe !== filters.vibe) return false;
-    if (filters.price && p.price !== filters.price) return false;
-    if (filters.music && p.music !== filters.music) return false;
-    if (filters.closingHour && p.closingHour < parseInt(filters.closingHour)) return false;
+    // Zone — single string
+    if (f.zone && p.zone !== f.zone) return false;
+
+    // Category — array filter vs array/string on place
+    if (f.category && f.category.length > 0) {
+      const placeCategories = Array.isArray(p.category) ? p.category : [p.category];
+      // Place must match AT LEAST ONE of the selected categories
+      const hasMatch = f.category.some(c => placeCategories.includes(c));
+      if (!hasMatch) return false;
+    }
+
+    // Vibe — array filter vs array/string on place
+    if (f.vibe && f.vibe.length > 0) {
+      const placeVibes = Array.isArray(p.vibe) ? p.vibe : [p.vibe];
+      // Place must match AT LEAST ONE selected vibe
+      const hasMatch = f.vibe.some(v => placeVibes.includes(v));
+      if (!hasMatch) return false;
+    }
+
+    // Price — single string
+    if (f.price && p.price !== f.price) return false;
+
+    // Music — array filter vs string on place
+    if (f.music && f.music.length > 0) {
+      const placeMusic = Array.isArray(p.music) ? p.music : [p.music];
+      const hasMatch = f.music.some(m => placeMusic.includes(m));
+      if (!hasMatch) return false;
+    }
+
+    // Closing hour — place must close AT OR AFTER the selected hour
+    if (f.closingHour && f.closingHour !== "") {
+      const needed = parseInt(f.closingHour, 10);
+      const closes = parseInt(p.closingHour, 10);
+      // Treat 0 as midnight = 24 for comparison, 5 as 5am is "latest"
+      const normalise = h => h === 0 ? 24 : h;
+      if (normalise(closes) < normalise(needed)) return false;
+    }
+
     return true;
   });
 
-  const activeFilters = Object.entries(filters || {}).filter(([, v]) => v !== "" && v !== null);
+  // Build readable filter tags for display
+  const filterTags = [];
+  if (f.zone) filterTags.push({ icon: "📍", label: zoneLabels[f.zone] || f.zone });
+  (f.category || []).forEach(v => filterTags.push({ icon: "🏠", label: v }));
+  (f.vibe || []).forEach(v => filterTags.push({ icon: "✨", label: v }));
+  if (f.price) filterTags.push({ icon: "💰", label: f.price });
+  (f.music || []).forEach(v => filterTags.push({ icon: "🎵", label: v }));
+  if (f.closingHour) filterTags.push({ icon: "🕐", label: `până la ${f.closingHour}:00` });
 
   return (
     <div style={{ minHeight: "100vh", background: "#F5F0E8" }}>
@@ -35,7 +77,9 @@ function Results() {
       </div>
 
       <nav className="nav">
-        <div className="nav-logo" onClick={() => navigate("/")}>#UNDE<span>IEȘIM</span></div>
+        <div className="nav-logo" style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+          #UNDE<span>IEȘIM</span>
+        </div>
         <button
           onClick={() => navigate("/")}
           className="filter-submit-btn"
@@ -55,18 +99,18 @@ function Results() {
                 : <>NIMIC <span>GĂSIT</span></>
               }
             </h1>
-            {filters?.zone && (
-              <div className="results-zone-badge">📍 {zoneLabels[filters.zone] || filters.zone}</div>
+            {f.zone && (
+              <div className="results-zone-badge">📍 {zoneLabels[f.zone] || f.zone}</div>
             )}
           </div>
 
-          {activeFilters.length > 0 && (
+          {filterTags.length > 0 && (
             <div className="results-active-filters">
               <div className="filter-section-eyebrow" style={{ marginBottom: "12px" }}>FILTRE ACTIVE</div>
               <div>
-                {activeFilters.map(([key, val]) => (
-                  <span key={key} className="results-filter-tag">
-                    {key === "zone" ? "📍" : key === "category" ? "🏠" : key === "vibe" ? "✨" : key === "price" ? "💰" : key === "music" ? "🎵" : "🕐"} {val}
+                {filterTags.map((tag, i) => (
+                  <span key={i} className="results-filter-tag">
+                    {tag.icon} {tag.label}
                   </span>
                 ))}
               </div>
@@ -81,7 +125,7 @@ function Results() {
             <div className="results-empty-emoji">🔍</div>
             <h2 className="results-empty-title">Nicio potrivire</h2>
             <p className="results-empty-desc">
-              Încearcă să schimbi sau să scoți câteva filtre.
+              Încearcă să scoți câteva filtre — poate combini categorii care nu se suprapun.
             </p>
             <button
               className="filter-submit-btn"
