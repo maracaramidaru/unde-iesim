@@ -196,11 +196,15 @@ body {
 }
 
 /* ============================================
-   FILTER PANEL
+   FILTER PANEL — redesigned
    ============================================ */
+
+/* Keep old .filter-panel class for Contact form compatibility */
 .filter-panel {
-  background: #fff; border: 2px solid #2C2C2C;
-  padding: 40px; position: relative;
+  background: #fff;
+  border: 2px solid #2C2C2C;
+  padding: 40px;
+  position: relative;
 }
 .filter-panel-corner-tl {
   position: absolute; top: -2px; left: -2px;
@@ -219,9 +223,7 @@ body {
   letter-spacing: -1px; color: #2C2C2C; margin-bottom: 8px;
 }
 .filter-panel-divider { width: 40px; height: 3px; background: #8B1A1A; margin-bottom: 8px; }
-.filter-panel-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px;
-}
+.filter-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
 .filter-field label {
   font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: 3px;
   text-transform: uppercase; color: #8B1A1A;
@@ -236,14 +238,8 @@ body {
   background-repeat: no-repeat; background-position: right 4px center; transition: border-color 0.2s;
 }
 .filter-field select:focus { border-bottom-color: #8B1A1A; }
-.filter-hint {
-  grid-column: 1 / -1; margin-top: 20px;
-  display: flex; align-items: center;
-}
-.filter-hint span {
-  font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 1px;
-  color: rgba(44,44,44,0.4); font-style: italic;
-}
+
+/* Submit button — used by Contact too */
 .filter-submit-btn {
   margin-top: 36px; width: 100%; background: #8B1A1A; color: #F5F0E8;
   border: none; padding: 18px 32px;
@@ -254,6 +250,311 @@ body {
 }
 .filter-submit-btn:hover { background: #6B1414; }
 .filter-submit-btn:active { transform: scale(0.99); }
+
+/* ── NEW fp-panel (FilterPanel component) ── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@700;800&display=swap');
+
+.fp-panel {
+  background: #fff;
+  border: 2px solid #2C2C2C;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 6px 6px 0px #8B1A1A;
+}
+
+/* Header */
+.fp-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 28px 28px 0;
+  gap: 16px;
+}
+.fp-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #8B1A1A;
+  margin-bottom: 6px;
+}
+.fp-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #2C2C2C;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+.fp-reset {
+  background: transparent;
+  border: 1.5px solid rgba(139,26,26,0.3);
+  color: #8B1A1A;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.fp-reset:hover {
+  background: #8B1A1A;
+  border-color: #8B1A1A;
+  color: #F5F0E8;
+}
+
+/* Body */
+.fp-body {
+  padding: 20px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Section */
+.fp-section {
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(44,44,44,0.1);
+}
+.fp-section:last-child { border-bottom: none; }
+
+.fp-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.fp-section-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+.fp-section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #2C2C2C;
+}
+.fp-section-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(44,44,44,0.35);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-left: 2px;
+}
+
+/* Generic pill (zone, vibe, music) */
+.fpill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.fpill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #F5F0E8;
+  border: 1.5px solid rgba(44,44,44,0.2);
+  color: #2C2C2C;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 13px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.fpill:hover {
+  border-color: #8B1A1A;
+  color: #8B1A1A;
+  background: #fff;
+}
+.fpill-on {
+  background: #8B1A1A;
+  border-color: #8B1A1A;
+  color: #F5F0E8;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(139,26,26,0.25);
+}
+.fpill-on:hover { background: #6B1414; border-color: #6B1414; color: #F5F0E8; }
+.fpill-emoji { font-size: 13px; line-height: 1; }
+.fpill-check { font-size: 10px; opacity: 0.85; }
+
+/* Category pills */
+.cat-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.cat-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F5F0E8;
+  border: 1.5px solid rgba(44,44,44,0.2);
+  color: #2C2C2C;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: left;
+  position: relative;
+}
+.cat-pill:hover {
+  border-color: #8B1A1A;
+  background: #fff;
+  transform: translateY(-1px);
+}
+.cat-pill-on {
+  background: #8B1A1A;
+  border-color: #8B1A1A;
+  color: #F5F0E8;
+  box-shadow: 4px 4px 0px #2C2C2C;
+}
+.cat-pill-on:hover { background: #6B1414; border-color: #6B1414; transform: translateY(-1px); }
+.cat-pill-emoji { font-size: 20px; line-height: 1; }
+.cat-pill-label { flex: 1; }
+.cat-pill-check {
+  font-size: 11px;
+  background: #D4A843;
+  color: #2C2C2C;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-weight: 800;
+}
+
+/* Price pills */
+.price-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.price-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: #F5F0E8;
+  border: 1.5px solid rgba(44,44,44,0.2);
+  border-radius: 12px;
+  padding: 12px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: #2C2C2C;
+}
+.price-pill:hover {
+  border-color: #D4A843;
+  background: #fff;
+  transform: translateY(-1px);
+}
+.price-pill-on {
+  background: #D4A843;
+  border-color: #D4A843;
+  color: #2C2C2C;
+  box-shadow: 4px 4px 0px #2C2C2C;
+}
+.price-pill-on:hover { background: #C49A30; border-color: #C49A30; }
+.price-pill-sub {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.price-pill-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+  color: inherit;
+  opacity: 0.75;
+}
+
+/* Time pills */
+.time-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.time-pill {
+  background: #F5F0E8;
+  border: 1.5px solid rgba(44,44,44,0.2);
+  color: #2C2C2C;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.time-pill:hover { border-color: #8B1A1A; color: #8B1A1A; background: #fff; }
+.time-pill-on {
+  background: #8B1A1A;
+  border-color: #8B1A1A;
+  color: #F5F0E8;
+  box-shadow: 3px 3px 0px #2C2C2C;
+}
+.time-pill-on:hover { background: #6B1414; border-color: #6B1414; }
+
+/* Submit button */
+.fp-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #8B1A1A;
+  color: #F5F0E8;
+  border: none;
+  padding: 20px 32px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-top: 2px solid #2C2C2C;
+}
+.fp-submit:hover { background: #6B1414; }
+.fp-submit:active { transform: scale(0.995); }
+.fp-submit-icon { display: flex; align-items: center; opacity: 0.8; }
+.fp-submit-arrow { margin-left: 4px; font-size: 16px; transition: transform 0.2s; }
+.fp-submit:hover .fp-submit-arrow { transform: translateX(4px); }
+
+/* Responsive fp-panel */
+@media (max-width: 768px) {
+  .fp-panel { border-radius: 12px; }
+  .fp-header { padding: 20px 20px 0; }
+  .fp-body { padding: 16px 20px 20px; }
+  .fp-title { font-size: 18px; }
+  .cat-group { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .price-group { gap: 6px; }
+  .cat-pill { padding: 10px 12px; font-size: 12px; }
+  .cat-pill-emoji { font-size: 16px; }
+}
+@media (max-width: 480px) {
+  .cat-group { grid-template-columns: 1fr 1fr; }
+  .price-group { grid-template-columns: 1fr 1fr 1fr; }
+  .fpill { font-size: 11px; padding: 6px 11px; }
+}
 
 /* ============================================
    PLACE CARD
@@ -468,58 +769,7 @@ body {
   .nav { padding: 12px 16px; }
 }
 
-/* ============================================
-   PILL FILTERS (FilterPanel)
-   ============================================ */
-.filter-section-block {
-  margin-bottom: 28px;
-}
-.filter-block-label {
-  font-family: 'Courier New', monospace;
-  font-size: 15px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #8B1A1A;
-  margin-bottom: 10px;
-}
-.filter-block-hint {
-  color: rgba(139,26,26,0.45);
-  font-size: 14px;
-  letter-spacing: 1px;
-  text-transform: none;
-}
-.pill-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.pill {
-  background: transparent;
-  border: 1.5px solid #2C2C2C;
-  color: #2C2C2C;
-  font-family: 'Courier New', monospace;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-  white-space: nowrap;
-}
-.pill:hover {
-  border-color: #8B1A1A;
-  color: #8B1A1A;
-}
-.pill-active {
-  background: #8B1A1A;
-  border-color: #8B1A1A;
-  color: #F5F0E8;
-}
-.pill-active:hover {
-  background: #6B1414;
-  border-color: #6B1414;
-  color: #F5F0E8;
-}
+/* old pill classes removed — replaced by fp- system above */
 
 /* ============================================
    IMAGE SLIDER (PlaceCard)

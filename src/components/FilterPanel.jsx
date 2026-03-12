@@ -3,196 +3,167 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const zoneOptions = [
-  { value: "centru", label: "Centru Vechi" },
-  { value: "victoriei", label: "Piața Victoriei" },
-  { value: "unirii", label: "Piața Unirii" },
-  { value: "floreasca", label: "Floreasca" },
-  { value: "primaverii", label: "Primăverii" },
-  { value: "cotroceni", label: "Cotroceni" },
-  { value: "dorobanti", label: "Dorobanți" },
+  { value: "centru",    label: "Centru Vechi",     emoji: "🏛️" },
+  { value: "victoriei", label: "Piața Victoriei",  emoji: "🌿" },
+  { value: "unirii",   label: "Piața Unirii",      emoji: "🌊" },
+  { value: "floreasca", label: "Floreasca",         emoji: "🌸" },
+  { value: "primaverii",label: "Primăverii",        emoji: "🌳" },
+  { value: "cotroceni", label: "Cotroceni",         emoji: "🎓" },
+  { value: "dorobanti", label: "Dorobanți",         emoji: "✨" },
 ];
 
 const categoryOptions = [
-  { value: "cafea", label: "☕ Cafenea" },
-  { value: "restaurant", label: "🍽️ Restaurant" },
-  { value: "bar", label: "🍸 Bar" },
-  { value: "club", label: "🎵 Club" },
+  { value: "cafea",      label: "Cafenea",    emoji: "☕", color: "#C8813A" },
+  { value: "restaurant", label: "Restaurant", emoji: "🍽️", color: "#2D7D4E" },
+  { value: "bar",        label: "Bar",        emoji: "🍸", color: "#4A6FA5" },
+  { value: "club",       label: "Club",       emoji: "🎵", color: "#7B3FA0" },
 ];
 
 const vibeOptions = {
   "": [
-    { value: "specialty", label: "Specialty Coffee" },
-    { value: "instagram", label: "Instagramabil" },
-    { value: "date", label: "Perfect pentru date" },
-    { value: "chill", label: "Cozy / Relaxat" },
-    { value: "trendy", label: "Trendy" },
-    { value: "party", label: "Party" },
-    { value: "casual", label: "Casual" },
-    { value: "remote", label: "Remote friendly" },
+    { value: "specialty", label: "Specialty Coffee", emoji: "⚗️" },
+    { value: "instagram",  label: "Instagramabil",   emoji: "📸" },
+    { value: "date",       label: "Date Night",      emoji: "🕯️" },
+    { value: "chill",      label: "Cozy & Chill",    emoji: "🛋️" },
+    { value: "trendy",     label: "Trendy",          emoji: "🔥" },
+    { value: "party",      label: "Party",           emoji: "🎉" },
+    { value: "casual",     label: "Casual",          emoji: "😊" },
+    { value: "remote",     label: "Remote Work",     emoji: "💻" },
   ],
   cafea: [
-    { value: "specialty", label: "Specialty Coffee" },
-    { value: "instagram", label: "Instagramabil" },
-    { value: "chill", label: "Cozy / Relaxat" },
-    { value: "trendy", label: "Trendy" },
-    { value: "remote", label: "Remote work friendly" },
+    { value: "specialty", label: "Specialty Coffee", emoji: "⚗️" },
+    { value: "instagram",  label: "Instagramabil",   emoji: "📸" },
+    { value: "chill",      label: "Cozy & Chill",    emoji: "🛋️" },
+    { value: "trendy",     label: "Trendy",          emoji: "🔥" },
+    { value: "remote",     label: "Remote Work",     emoji: "💻" },
   ],
   restaurant: [
-    { value: "date", label: "Perfect pentru date" },
-    { value: "casual", label: "Casual" },
-    { value: "trendy", label: "Trendy" },
-    { value: "chill", label: "Relaxat" },
-    { value: "instagram", label: "Instagramabil" },
+    { value: "date",       label: "Date Night",      emoji: "🕯️" },
+    { value: "casual",     label: "Casual",          emoji: "😊" },
+    { value: "trendy",     label: "Trendy",          emoji: "🔥" },
+    { value: "chill",      label: "Relaxat",         emoji: "🛋️" },
+    { value: "instagram",  label: "Instagramabil",   emoji: "📸" },
   ],
   bar: [
-    { value: "chill", label: "Cozy / Relaxat" },
-    { value: "date", label: "Perfect pentru date" },
-    { value: "trendy", label: "Trendy" },
-    { value: "instagram", label: "Rooftop / Instagramabil" },
+    { value: "chill",      label: "Cozy & Chill",    emoji: "🛋️" },
+    { value: "date",       label: "Date Night",      emoji: "🕯️" },
+    { value: "trendy",     label: "Trendy",          emoji: "🔥" },
+    { value: "instagram",  label: "Rooftop / Sky",   emoji: "🌆" },
   ],
   club: [
-    { value: "party", label: "Party" },
-    { value: "trendy", label: "Trendy / Underground" },
-    { value: "instagram", label: "See & be seen" },
+    { value: "party",      label: "Party",           emoji: "🎉" },
+    { value: "trendy",     label: "Underground",     emoji: "🖤" },
+    { value: "instagram",  label: "See & Be Seen",   emoji: "💎" },
   ],
 };
 
 const musicOptions = {
   "": [
-    { value: "ambient", label: "Ambient" },
-    { value: "lounge", label: "Lounge" },
-    { value: "jazz", label: "Jazz" },
-    { value: "pop", label: "Pop" },
-    { value: "rock", label: "Rock" },
-    { value: "electronic", label: "Electronic" },
-    { value: "techno", label: "Techno" },
-    { value: "house", label: "House" },
-    { value: "soft", label: "Soft / Instrumental" },
+    { value: "ambient",   label: "Ambient",       emoji: "🌙" },
+    { value: "lounge",    label: "Lounge",        emoji: "🥂" },
+    { value: "jazz",      label: "Jazz",          emoji: "🎷" },
+    { value: "pop",       label: "Pop",           emoji: "🎤" },
+    { value: "rock",      label: "Rock",          emoji: "🎸" },
+    { value: "electronic",label: "Electronic",    emoji: "🎛️" },
+    { value: "techno",    label: "Techno",        emoji: "⚡" },
+    { value: "house",     label: "House",         emoji: "🔊" },
+    { value: "soft",      label: "Instrumental",  emoji: "🎹" },
   ],
   cafea: [
-    { value: "ambient", label: "Ambient" },
-    { value: "soft", label: "Soft / Instrumental" },
-    { value: "jazz", label: "Jazz" },
-    { value: "lounge", label: "Lounge" },
+    { value: "ambient",   label: "Ambient",       emoji: "🌙" },
+    { value: "soft",      label: "Instrumental",  emoji: "🎹" },
+    { value: "jazz",      label: "Jazz",          emoji: "🎷" },
+    { value: "lounge",    label: "Lounge",        emoji: "🥂" },
   ],
   restaurant: [
-    { value: "ambient", label: "Ambient" },
-    { value: "jazz", label: "Jazz" },
-    { value: "lounge", label: "Lounge" },
-    { value: "rock", label: "Rock" },
-    { value: "pop", label: "Pop" },
+    { value: "ambient",   label: "Ambient",       emoji: "🌙" },
+    { value: "jazz",      label: "Jazz",          emoji: "🎷" },
+    { value: "lounge",    label: "Lounge",        emoji: "🥂" },
+    { value: "rock",      label: "Rock",          emoji: "🎸" },
+    { value: "pop",       label: "Pop",           emoji: "🎤" },
   ],
   bar: [
-    { value: "lounge", label: "Lounge" },
-    { value: "jazz", label: "Jazz" },
-    { value: "ambient", label: "Ambient / Chill" },
-    { value: "electronic", label: "Electronic" },
-    { value: "pop", label: "Pop" },
+    { value: "lounge",    label: "Lounge",        emoji: "🥂" },
+    { value: "jazz",      label: "Jazz",          emoji: "🎷" },
+    { value: "ambient",   label: "Ambient",       emoji: "🌙" },
+    { value: "electronic",label: "Electronic",    emoji: "🎛️" },
+    { value: "pop",       label: "Pop",           emoji: "🎤" },
   ],
   club: [
-    { value: "techno", label: "Techno" },
-    { value: "house", label: "House" },
-    { value: "electronic", label: "Electronic" },
-    { value: "pop", label: "Pop / Comercial" },
-    { value: "hip hop", label: "Hip Hop / R&B" },
+    { value: "techno",    label: "Techno",        emoji: "⚡" },
+    { value: "house",     label: "House",         emoji: "🔊" },
+    { value: "electronic",label: "Electronic",    emoji: "🎛️" },
+    { value: "pop",       label: "Pop",           emoji: "🎤" },
+    { value: "hip hop",   label: "Hip Hop",       emoji: "🎤" },
   ],
 };
 
 const priceOptions = {
-  "": [
-    { value: "low", label: "€ Ieftin" },
-    { value: "medium", label: "€€ Mediu" },
-    { value: "high", label: "€€€ Scump" },
-  ],
-  cafea: [
-    { value: "low", label: "€ Sub 20 lei / cafea" },
-    { value: "medium", label: "€€ 20–35 lei" },
-    { value: "high", label: "€€€ Specialty premium" },
-  ],
-  restaurant: [
-    { value: "low", label: "€ Sub 60 lei / pers." },
-    { value: "medium", label: "€€ 60–150 lei / pers." },
-    { value: "high", label: "€€€ Peste 150 lei" },
-  ],
-  bar: [
-    { value: "low", label: "€ Bere & shots ieftine" },
-    { value: "medium", label: "€€ Cocktailuri standard" },
-    { value: "high", label: "€€€ Cocktailuri premium" },
-  ],
-  club: [
-    { value: "low", label: "€ Intrare liberă" },
-    { value: "medium", label: "€€ Intrare + consumație" },
-    { value: "high", label: "€€€ Bottle service / VIP" },
-  ],
+  "":         [{ value: "low", label: "Ieftin", sub: "€" }, { value: "medium", label: "Mediu", sub: "€€" }, { value: "high", label: "Scump", sub: "€€€" }],
+  cafea:      [{ value: "low", label: "Sub 20 lei", sub: "€" }, { value: "medium", label: "20–35 lei", sub: "€€" }, { value: "high", label: "Premium", sub: "€€€" }],
+  restaurant: [{ value: "low", label: "Sub 60 lei", sub: "€" }, { value: "medium", label: "60–150 lei", sub: "€€" }, { value: "high", label: "Peste 150", sub: "€€€" }],
+  bar:        [{ value: "low", label: "Shots ieftine", sub: "€" }, { value: "medium", label: "Cocktailuri", sub: "€€" }, { value: "high", label: "Premium", sub: "€€€" }],
+  club:       [{ value: "low", label: "Intrare liberă", sub: "€" }, { value: "medium", label: "Consumație", sub: "€€" }, { value: "high", label: "VIP / Bottle", sub: "€€€" }],
 };
 
 const closingOptions = {
-  "": [
-    { value: "22", label: "Până la 22:00" },
-    { value: "23", label: "Până la 23:00" },
-    { value: "0", label: "Până la 00:00" },
-    { value: "3", label: "Până la 03:00" },
-    { value: "5", label: "Până la 05:00" },
-  ],
-  cafea: [
-    { value: "20", label: "Până la 20:00" },
-    { value: "21", label: "Până la 21:00" },
-    { value: "22", label: "Până la 22:00" },
-    { value: "23", label: "Până la 23:00" },
-  ],
-  restaurant: [
-    { value: "22", label: "Până la 22:00" },
-    { value: "23", label: "Până la 23:00" },
-    { value: "0", label: "Până la miezul nopții" },
-  ],
-  bar: [
-    { value: "23", label: "Până la 23:00" },
-    { value: "1", label: "Până la 01:00" },
-    { value: "2", label: "Până la 02:00" },
-    { value: "5", label: "Non-stop (5:00)" },
-  ],
-  club: [
-    { value: "3", label: "Până la 03:00" },
-    { value: "5", label: "Până la 05:00" },
-  ],
+  "":         [{ value: "22", label: "22:00" }, { value: "23", label: "23:00" }, { value: "0", label: "Miezul nopții" }, { value: "3", label: "03:00" }, { value: "5", label: "05:00" }],
+  cafea:      [{ value: "20", label: "20:00" }, { value: "21", label: "21:00" }, { value: "22", label: "22:00" }, { value: "23", label: "23:00" }],
+  restaurant: [{ value: "22", label: "22:00" }, { value: "23", label: "23:00" }, { value: "0", label: "Miezul nopții" }],
+  bar:        [{ value: "23", label: "23:00" }, { value: "1", label: "01:00" }, { value: "2", label: "02:00" }, { value: "5", label: "Non-stop" }],
+  club:       [{ value: "3", label: "03:00" }, { value: "5", label: "05:00" }],
 };
 
-// ── Pill checkbox group (multi-select) ──────────────────
-function CheckboxGroup({ name, options, selected, onChange }) {
+// ─── Pill groups ───────────────────────────────────────────
+
+function EmojiPill({ opt, checked, onClick, accentColor }) {
   return (
-    <div className="pill-group">
-      {options.map(opt => {
-        const checked = selected.includes(opt.value);
-        return (
-          <button
-            key={opt.value}
-            type="button"
-            className={`pill${checked ? " pill-active" : ""}`}
-            onClick={() => onChange(name, opt.value)}
-          >
-            {checked && "✓ "}
-            {opt.label}
-          </button>
-        );
-      })}
-    </div>
+    <button
+      type="button"
+      className={`fpill${checked ? " fpill-on" : ""}`}
+      style={checked && accentColor ? { "--pill-accent": accentColor } : {}}
+      onClick={onClick}
+    >
+      {opt.emoji && <span className="fpill-emoji">{opt.emoji}</span>}
+      <span className="fpill-label">{opt.label}</span>
+      {checked && <span className="fpill-check">✓</span>}
+    </button>
   );
 }
 
-// ── Pill radio group (single-select, click again to deselect) ──
-function RadioGroup({ name, options, selected, onChange }) {
+function PriceGroup({ options, selected, onChange }) {
   return (
-    <div className="pill-group">
+    <div className="price-group">
       {options.map(opt => {
         const checked = selected === opt.value;
         return (
           <button
             key={opt.value}
             type="button"
-            className={`pill${checked ? " pill-active" : ""}`}
-            onClick={() => onChange(name, checked ? "" : opt.value)}
+            className={`price-pill${checked ? " price-pill-on" : ""}`}
+            onClick={() => onChange("price", checked ? "" : opt.value)}
           >
-            {checked && "✓ "}
+            <span className="price-pill-sub">{opt.sub}</span>
+            <span className="price-pill-label">{opt.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function TimeGroup({ options, selected, onChange }) {
+  return (
+    <div className="time-group">
+      {options.map(opt => {
+        const checked = selected === opt.value;
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            className={`time-pill${checked ? " time-pill-on" : ""}`}
+            onClick={() => onChange("closingHour", checked ? "" : opt.value)}
+          >
             {opt.label}
           </button>
         );
@@ -201,26 +172,34 @@ function RadioGroup({ name, options, selected, onChange }) {
   );
 }
 
-// ── Main ────────────────────────────────────────────────
+// ─── Section wrapper ───────────────────────────────────────
+
+function FilterSection({ icon, label, hint, children }) {
+  return (
+    <div className="fp-section">
+      <div className="fp-section-header">
+        <span className="fp-section-icon">{icon}</span>
+        <span className="fp-section-label">{label}</span>
+        {hint && <span className="fp-section-hint">{hint}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ─── Main ─────────────────────────────────────────────────
+
 function FilterPanel() {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({
-    zone: "",
-    category: [],
-    vibe: [],
-    price: "",
-    music: [],
-    closingHour: "",
+    zone: "", category: [], vibe: [], price: "", music: [], closingHour: "",
   });
 
   function toggleMulti(name, value) {
     setFilters(prev => {
       const arr = prev[name];
-      const next = arr.includes(value)
-        ? arr.filter(v => v !== value)
-        : [...arr, value];
+      const next = arr.includes(value) ? arr.filter(v => v !== value) : [...arr, value];
       if (name === "category") {
-        // Reset dependent filters when category changes
         return { ...prev, category: next, vibe: [], music: [], price: "", closingHour: "" };
       }
       return { ...prev, [name]: next };
@@ -235,7 +214,10 @@ function FilterPanel() {
     navigate("/results", { state: filters });
   }
 
-  // Use category-specific options only when exactly one category is selected
+  function handleReset() {
+    setFilters({ zone: "", category: [], vibe: [], price: "", music: [], closingHour: "" });
+  }
+
   const cat = filters.category.length === 1 ? filters.category[0] : "";
   const currentVibes   = vibeOptions[cat]    || vibeOptions[""];
   const currentMusic   = musicOptions[cat]   || musicOptions[""];
@@ -244,67 +226,141 @@ function FilterPanel() {
   const hideMusic = cat === "cafea" && filters.vibe.includes("remote");
 
   const activeCount = [
-    filters.zone,
-    ...filters.category,
-    ...filters.vibe,
-    filters.price,
-    ...filters.music,
-    filters.closingHour,
+    filters.zone, ...filters.category, ...filters.vibe,
+    filters.price, ...filters.music, filters.closingHour,
   ].filter(Boolean).length;
 
+  // Get accent color for selected category
+  const catAccent = categoryOptions.find(c => c.value === cat)?.color;
+
   return (
-    <div className="filter-panel">
-      <div className="filter-panel-corner-tl" />
-      <div className="filter-panel-corner-br" />
-      <div className="filter-panel-eyebrow">✦ FILTRE DE CĂUTARE</div>
-      <h3 className="filter-panel-title">Personalizează căutarea</h3>
-      <div className="filter-panel-divider" />
+    <div className="fp-panel">
 
-      <div className="filter-section-block">
-        <div className="filter-block-label">Zonă</div>
-        <RadioGroup name="zone" options={zoneOptions} selected={filters.zone} onChange={setSingle} />
-      </div>
-
-      <div className="filter-section-block">
-        <div className="filter-block-label">Tip loc <span className="filter-block-hint">— poți alege mai multe</span></div>
-        <CheckboxGroup name="category" options={categoryOptions} selected={filters.category} onChange={toggleMulti} />
-      </div>
-
-      <div className="filter-section-block">
-        <div className="filter-block-label">
-          {cat === "cafea" ? "Atmosferă" : cat === "club" ? "Tip club" : "Vibe"}
-          <span className="filter-block-hint"> — poți alege mai multe</span>
+      {/* Header */}
+      <div className="fp-header">
+        <div className="fp-header-left">
+          <div className="fp-eyebrow">✦ CAUTĂ ÎN BUCUREȘTI</div>
+          <h3 className="fp-title">Ce cauți în seara asta?</h3>
         </div>
-        <CheckboxGroup name="vibe" options={currentVibes} selected={filters.vibe} onChange={toggleMulti} />
+        {activeCount > 0 && (
+          <button className="fp-reset" onClick={handleReset}>
+            Resetează ({activeCount})
+          </button>
+        )}
       </div>
 
-      <div className="filter-section-block">
-        <div className="filter-block-label">Preț</div>
-        <RadioGroup name="price" options={currentPrice} selected={filters.price} onChange={setSingle} />
-      </div>
+      <div className="fp-body">
 
-      {!hideMusic && (
-        <div className="filter-section-block">
-          <div className="filter-block-label">
-            {cat === "club" ? "Gen muzical" : cat === "cafea" ? "Muzică de fundal" : "Muzică"}
-            <span className="filter-block-hint"> — poți alege mai multe</span>
+        {/* Zonă */}
+        <FilterSection icon="📍" label="Zonă">
+          <div className="fpill-group">
+            {zoneOptions.map(opt => (
+              <EmojiPill
+                key={opt.value}
+                opt={opt}
+                checked={filters.zone === opt.value}
+                onClick={() => setSingle("zone", filters.zone === opt.value ? "" : opt.value)}
+              />
+            ))}
           </div>
-          <CheckboxGroup name="music" options={currentMusic} selected={filters.music} onChange={toggleMulti} />
-        </div>
-      )}
+        </FilterSection>
 
-      <div className="filter-section-block">
-        <div className="filter-block-label">
-          {cat === "club" ? "Durată noapte" : cat === "cafea" ? "Program" : "Deschis până la"}
-        </div>
-        <RadioGroup name="closingHour" options={currentClosing} selected={filters.closingHour} onChange={setSingle} />
+        {/* Tip loc */}
+        <FilterSection icon="🏠" label="Tip loc" hint="alege mai multe">
+          <div className="cat-group">
+            {categoryOptions.map(opt => {
+              const checked = filters.category.includes(opt.value);
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  className={`cat-pill${checked ? " cat-pill-on" : ""}`}
+                  style={{ "--cat-color": opt.color }}
+                  onClick={() => toggleMulti("category", opt.value)}
+                >
+                  <span className="cat-pill-emoji">{opt.emoji}</span>
+                  <span className="cat-pill-label">{opt.label}</span>
+                  {checked && <span className="cat-pill-check">✓</span>}
+                </button>
+              );
+            })}
+          </div>
+        </FilterSection>
+
+        {/* Vibe */}
+        <FilterSection
+          icon="✨"
+          label={cat === "cafea" ? "Atmosferă" : cat === "club" ? "Tip club" : "Vibe"}
+          hint="alege mai multe"
+        >
+          <div className="fpill-group">
+            {currentVibes.map(opt => (
+              <EmojiPill
+                key={opt.value}
+                opt={opt}
+                checked={filters.vibe.includes(opt.value)}
+                onClick={() => toggleMulti("vibe", opt.value)}
+                accentColor={catAccent}
+              />
+            ))}
+          </div>
+        </FilterSection>
+
+        {/* Preț */}
+        <FilterSection icon="💰" label="Buget">
+          <PriceGroup
+            options={currentPrice}
+            selected={filters.price}
+            onChange={setSingle}
+          />
+        </FilterSection>
+
+        {/* Muzică */}
+        {!hideMusic && (
+          <FilterSection
+            icon="🎵"
+            label={cat === "club" ? "Gen muzical" : cat === "cafea" ? "Muzică de fundal" : "Muzică"}
+            hint="alege mai multe"
+          >
+            <div className="fpill-group">
+              {currentMusic.map(opt => (
+                <EmojiPill
+                  key={opt.value}
+                  opt={opt}
+                  checked={filters.music.includes(opt.value)}
+                  onClick={() => toggleMulti("music", opt.value)}
+                  accentColor={catAccent}
+                />
+              ))}
+            </div>
+          </FilterSection>
+        )}
+
+        {/* Program */}
+        <FilterSection
+          icon="🕐"
+          label={cat === "club" ? "Durată noapte" : cat === "cafea" ? "Program" : "Deschis până la"}
+        >
+          <TimeGroup
+            options={currentClosing}
+            selected={filters.closingHour}
+            onChange={setSingle}
+          />
+        </FilterSection>
+
       </div>
 
-      <button className="filter-submit-btn" onClick={handleSubmit}>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
-        </svg>
-        {activeCount > 0 ? `CAUTĂ (${activeCount} filtre activ${activeCount === 1 ? "" : "e"}) ✦` : "CAUTĂ LOCURI ✦"}
+      {/* Submit */}
+      <button className="fp-submit" onClick={handleSubmit}>
+        <span className="fp-submit-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+          </svg>
+        </span>
+        {activeCount > 0
+          ? `Arată rezultatele · ${activeCount} filtre`
+          : "Arată toate locurile"}
+        <span className="fp-submit-arrow">→</span>
       </button>
     </div>
   );
