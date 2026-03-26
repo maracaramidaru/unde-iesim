@@ -34,14 +34,21 @@ function Contact() {
         </div>
       </div>
 
-      {/* Nav */}
+      {/* Nav — folosim navigate() din React Router, nu href */}
       <nav className="nav">
         <div className="nav-logo" onClick={() => navigate("/")}>
           UNDE<span>IEȘIM</span>
         </div>
         <div className="nav-links">
-          <a href="/" className="nav-link">Locuri</a>
-          <a href="/contact" className="nav-link nav-link-active">Contact</a>
+          {/* ✅ Fix: useNavigate în loc de href="/" care reîncarcă pagina */}
+          <button
+            className="nav-link"
+            onClick={() => navigate("/")}
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+          >
+            Locuri
+          </button>
+          <span className="nav-link nav-link-active">Contact</span>
         </div>
       </nav>
 
@@ -81,7 +88,7 @@ function Contact() {
             <div className="filter-section-eyebrow contact-social-eyebrow">✦ SAU GĂSEȘTE-NE PE</div>
             <div className="contact-social-links">
               {["Instagram", "TikTok", "Facebook"].map(s => (
-                <a key={s} href="#" className="contact-social-btn">{s}</a>
+                <button key={s} className="contact-social-btn">{s}</button>
               ))}
             </div>
           </div>

@@ -556,103 +556,326 @@ body {
   .fpill { font-size: 11px; padding: 6px 11px; }
 }
 
-/* ============================================
-   PLACE CARD
-   ============================================ */
-.place-card {
-  background: #F5F0E8; border: 2px solid #2C2C2C;
-  position: relative; overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer; display: flex; flex-direction: column;
+.pc-card {
+  background: #fff;
+  border: 2px solid #2C2C2C;
+  border-left: 5px solid var(--accent, #8B1A1A);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  overflow: hidden;
+  min-height: 340px;
 }
-.place-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 6px 6px 0px #8B1A1A;
+.pc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 8px 8px 0px var(--accent, #8B1A1A);
 }
-.place-card-img-wrap { position: relative; overflow: hidden; height: 190px; }
-.place-card-img-wrap img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.4s ease;
+ 
+/* Left accent stripe */
+.pc-stripe {
+  display: none; /* accent handled by border-left */
 }
-.place-card:hover .place-card-img-wrap img { transform: scale(1.05); }
-.place-card-badge-category {
-  position: absolute; top: 12px; left: 12px;
-  background: #8B1A1A; color: #F5F0E8;
-  font-family: 'Courier New', monospace; font-size: 9px;
-  letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; font-weight: 700;
+ 
+/* Big background watermark */
+.pc-watermark {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  font-family: 'Georgia', serif;
+  font-size: 88px;
+  font-weight: 900;
+  color: rgba(44,44,44,0.045);
+  line-height: 1;
+  letter-spacing: -5px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
 }
-.place-card-badge-price {
-  position: absolute; top: 12px; right: 12px;
-  background: #D4A843; color: #2C2C2C;
-  font-family: 'Georgia', serif; font-size: 12px; font-weight: 900; padding: 4px 10px;
+ 
+/* Top block */
+.pc-top {
+  padding: 20px 20px 16px 18px;
+  position: relative;
+  z-index: 1;
 }
-.place-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-.place-card-top-row {
-  display: flex; align-items: center;
-  justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;
+ 
+.pc-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
 }
-.place-card-vibe {
-  font-family: 'Courier New', monospace; font-size: 9px;
-  letter-spacing: 3px; text-transform: uppercase; color: #8B1A1A;
+ 
+.pc-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
-.place-card-stars { display: flex; align-items: center; gap: 2px; }
-.place-card-rating-num {
-  font-family: 'Courier New', monospace; font-size: 10px;
-  color: #2C2C2C; font-weight: 700; margin-left: 4px;
+ 
+.pc-cat-badge {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 3px 9px;
 }
-.place-card-name {
-  font-size: 20px; font-weight: 900; text-transform: uppercase;
-  letter-spacing: -1px; color: #2C2C2C; line-height: 1; margin: 0 0 6px 0;
+ 
+.pc-price-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
 }
-.place-card-address {
-  font-family: 'Courier New', monospace; font-size: 10px;
-  color: #666; letter-spacing: 0.5px; margin-bottom: 12px;
+.pc-price-sym {
+  font-family: 'Georgia', serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: #D4A843;
+  line-height: 1;
 }
-.place-card-divider { width: 32px; height: 2px; background: #8B1A1A; margin-bottom: 12px; }
-.place-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.place-card-tag {
-  font-family: 'Courier New', monospace; font-size: 9px;
-  letter-spacing: 1px; text-transform: uppercase;
-  background: rgba(139,26,26,0.08); border: 1px solid rgba(139,26,26,0.2);
-  color: #8B1A1A; padding: 3px 8px;
+.pc-price-label {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(44,44,44,0.4);
 }
-.place-card-meta { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-.place-card-meta-item {
-  font-family: 'Courier New', monospace; font-size: 10px;
-  letter-spacing: 1px; color: #666; text-transform: uppercase;
+ 
+/* Name */
+.pc-name {
+  font-family: 'Georgia', serif;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color: #2C2C2C;
+  line-height: 1.05;
+  margin: 0 0 10px 0;
 }
-.place-card-phone-row {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 8px; margin-bottom: 12px;
-  padding: 8px 12px; background: rgba(44,44,44,0.04); border: 1px solid rgba(44,44,44,0.1);
+ 
+/* Rating + zone row */
+.pc-sub-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-.place-card-phone-num {
-  font-family: 'Courier New', monospace; font-size: 11px;
-  color: #2C2C2C; letter-spacing: 0.5px;
+.pc-stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
 }
-.place-card-copy-btn {
-  font-family: 'Courier New', monospace; font-size: 9px;
-  letter-spacing: 2px; text-transform: uppercase;
-  background: #2C2C2C; color: #F5F0E8; border: none;
-  padding: 4px 10px; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+.pc-star {
+  color: rgba(44,44,44,0.15);
+  font-size: 12px;
 }
-.place-card-copy-btn:hover { background: #8B1A1A; }
-.place-card-actions { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; margin-top: auto; padding-top: 8px; }
-.place-card-btn {
-  border: none; padding: 12px 10px;
-  font-family: 'Courier New', monospace; font-size: 9px;
-  letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
-  cursor: pointer; transition: background 0.2s;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
+.pc-star.on {
+  color: #D4A843;
 }
-.place-card-btn-call { background: #8B1A1A; color: #F5F0E8; }
-.place-card-btn-call:hover { background: #6B1414; }
-.place-card-btn-map { background: #2C2C2C; color: #F5F0E8; }
-.place-card-btn-map:hover { background: #8B1A1A; }
-.place-card-corner {
-  position: absolute; bottom: -2px; right: -2px;
-  width: 16px; height: 16px; background: #8B1A1A; pointer-events: none;
+.pc-rating-num {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #2C2C2C;
+  margin-left: 5px;
 }
+.pc-zone {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+}
+ 
+/* Horizontal rule */
+.pc-rule {
+  height: 1px;
+  background: rgba(44,44,44,0.1);
+  margin: 0 18px;
+  position: relative;
+  z-index: 1;
+}
+.pc-rule::before {
+  content: '';
+  position: absolute;
+  left: 0; top: -1px;
+  width: 32px; height: 3px;
+  background: var(--accent, #8B1A1A);
+}
+ 
+/* Middle block */
+.pc-mid {
+  padding: 14px 20px 14px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+ 
+.pc-address {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #666;
+  line-height: 1.5;
+}
+ 
+/* Vibe pills */
+.pc-vibes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.pc-vibe-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245,240,232,0.9);
+  border: 1px solid rgba(44,44,44,0.12);
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #2C2C2C;
+  padding: 3px 8px;
+}
+.pc-vibe-emoji {
+  font-size: 10px;
+  line-height: 1;
+}
+ 
+/* Food tags */
+.pc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.pc-tag {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent, #8B1A1A);
+  background: rgba(139,26,26,0.06);
+  border: 1px solid rgba(139,26,26,0.15);
+  padding: 3px 8px;
+}
+ 
+/* Info row (music + hours) */
+.pc-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.pc-info-item {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pc-info-icon { font-size: 11px; }
+ 
+/* Phone */
+.pc-phone-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 18px;
+  background: rgba(245,240,232,0.6);
+  border-top: 1px solid rgba(44,44,44,0.08);
+  position: relative;
+  z-index: 1;
+}
+.pc-phone-num {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #2C2C2C;
+  letter-spacing: 0.5px;
+}
+.pc-copy-btn {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #2C2C2C;
+  color: #F5F0E8;
+  border: none;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.pc-copy-btn:hover { background: var(--accent, #8B1A1A); }
+ 
+/* Action buttons */
+.pc-actions {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  border-top: 2px solid #2C2C2C;
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+.pc-actions:not(:has(.pc-btn-call)) {
+  grid-template-columns: 1.6fr 1fr;
+}
+ 
+.pc-btn {
+  border: none;
+  border-right: 1px solid rgba(44,44,44,0.12);
+  padding: 13px 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #F5F0E8;
+  color: #2C2C2C;
+  text-decoration: none;
+}
+.pc-btn:last-child { border-right: none; }
+ 
+.pc-btn-photos:hover { background: #4A6FA5; color: #fff; }
+.pc-btn-call:hover   { background: #8B1A1A; color: #fff; }
+.pc-btn-map:hover    { background: #2D7D4E; color: #fff; }
+ 
+/* Corner accent */
+.pc-corner {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  background: var(--accent, #8B1A1A);
+  pointer-events: none;
+}
+ 
+/* Responsive */
+@media (max-width: 480px) {
+  .pc-name { font-size: 16px; }
+  .pc-actions { grid-template-columns: 1fr 1fr; }
+  .pc-btn-photos { grid-column: 1 / -1; border-right: none; border-bottom: 1px solid rgba(44,44,44,0.12); }
+}
+ 
 
 /* ============================================
    RESULTS PAGE
@@ -1025,3 +1248,142 @@ body {
   .contact-social-links { gap: 8px; }
   .contact-social-btn { font-size: 9px; padding: 7px 12px; }
 }
+ 
+.home-section {
+  padding: 64px 48px;
+  background: #F5F0E8;
+  border-bottom: 2px solid #2C2C2C;
+}
+.home-section-alt {
+  background: #2C2C2C;
+}
+.home-section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.home-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.home-section-title {
+  font-family: 'Georgia', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  color: #2C2C2C;
+  line-height: 0.95;
+  margin: 8px 0 12px;
+}
+.home-section-alt .home-section-title { color: #F5F0E8; }
+.home-section-title span { color: #8B1A1A; }
+.home-section-alt .home-section-title span { color: #D4A843; }
+.home-section-desc {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  max-width: 380px;
+  line-height: 1.7;
+}
+ 
+/* CTA button */
+.home-section-cta {
+  background: #8B1A1A;
+  color: #F5F0E8;
+  border: none;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 14px 28px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.home-section-cta:hover { background: #6B1414; }
+.home-section-cta-light {
+  background: transparent;
+  border: 2px solid #D4A843;
+  color: #D4A843;
+}
+.home-section-cta-light:hover { background: #D4A843; color: #2C2C2C; }
+ 
+/* Cards grid */
+.home-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px;
+}
+ 
+/* Card wrap with NEW badge */
+.home-card-wrap {
+  position: relative;
+}
+.home-new-badge {
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  background: #D4A843;
+  color: #2C2C2C;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  z-index: 3;
+  box-shadow: 2px 2px 0 #2C2C2C;
+}
+ 
+/* Schedule row on PlaceCard */
+.pc-schedule-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pc-schedule-icon { font-size: 11px; }
+.pc-schedule-time {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #444;
+  text-transform: uppercase;
+}
+.pc-open-badge {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.pc-open-badge.open {
+  background: rgba(45, 125, 78, 0.12);
+  color: #2D7D4E;
+  border: 1px solid rgba(45, 125, 78, 0.3);
+}
+.pc-open-badge.closed {
+  background: rgba(139, 26, 26, 0.08);
+  color: #8B1A1A;
+  border: 1px solid rgba(139, 26, 26, 0.2);
+}
+ 
+/* Responsive */
+@media (max-width: 768px) {
+  .home-section { padding: 40px 24px; }
+  .home-section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .home-cards-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+}
+@media (max-width: 480px) {
+  .home-section { padding: 32px 16px; }
+  .home-cards-grid { grid-template-columns: 1fr; }
+}
+ 
